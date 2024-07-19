@@ -11,7 +11,7 @@ self.addEventListener('push', function(e) {
       {
         action: 'explore',
         title: 'Explore this new world',
-        // icon: 'images/checkmark.png'
+        icon: 'https://ewr1.vultrobjects.com/urbit/hastuc-dibtux/2024.4.30..2.37.9..bae1.47ae.147a.e147-IMG_5592.jpeg'
       },
       {
         action: 'close',
