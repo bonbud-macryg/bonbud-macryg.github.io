@@ -1,88 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf8">
-    <title>Headline</title>
-    <meta name="description" content="A minimalistic RSS reader.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Safari bar colors -->
-    <meta name="theme-color" content="#F9F5DC" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#212121" media="(prefers-color-scheme: dark)">
-    <link rel="stylesheet" href="styles.css" />
-
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="150x150" href="apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-    <link rel="manifest" href="icons/site.webmanifest">
-    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#212121">
-    <link rel="shortcut icon" href="icons/favicon.ico">
-    <meta name="apple-mobile-web-app-title" content="Headline">
-    <meta name="application-name" content="Headline">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-config" content="icons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Auto refresh -->
-    <meta http-equiv="refresh" content="600">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
   </head>
   <body>
-    <!-- Loading indicator -->
-    <div id="loading"><div></div></div>
-
-    <!-- Overlay -->
-    <div id="fade" z-index="1"></div>
-    <!-- Menu bar -->
-    <nav>
-      <a id="menu" onclick="onMenuClicked()" z-index="0">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-           viewBox="0 0 24 24" fill="none" stroke="var(--color-text)"
-           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M-6,12 L0,6 L24,6 L12,18" />
-          <path d="M-6,12 L0,18 L24,18 L12,6" />
-          <path d="M3,12 L21,12" />
-        </svg>
-      </a>
-      <h3 id="title"></h3>
-    </nav>
-    <!-- Settings -->
-    <div>
-    <header id="settings" z-index="-1">
-      <section id="feedsection">
-        <ul id="feeds">
-          <template id="settings-feed-item">
-            <li>
-              <a id="remove">x </a><span id="feedurl"></span><a></a>
-            </li>
-          </template>
-        </ul>
-      </section>
-      <!-- Add -->
-      <section>
-        <a onclick="onAddFeedClicked()">Add</a>
-      </section>
-      <!-- Highlight -->
-      <section id="keywordsdiv">
-        <input id="keywords" rows="1" placeholder="Highlight" oninput="onKeywordsChanged(this.value)"></input>
-      </section>
-      <!-- Done -->
-      <section>
-        <button id="done" onclick="onDoneClicked();">Done</button>
-      </section>
-    </header>
-    </div>
-
-    <!-- News feed -->
-    <article>
-      <ul id="news" z-index="-1">
-        <template id="news-item">
-          <li>
-            <h3></h3>
-            <a><span></span><em></em></a>
-          </li>
-        </template>
-      </ul>
-    </article>
-
-    <script src="app.js"></script>
+    <button onclick="suscribe()">Subscribe</button>
+    <script>
+      addEventListener('load', async () =>{
+        let sw = await navigator.serviceWorker.register('./sw.js')
+        console.log(sw)
+      })
+      
+      async function subscribe() {
+        let sw = await navigator.serviceWorker.ready
+        let push = await sw.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: 'todo'
+        })
+        // would store these on a server and iterate over
+        // the list of these when you send out notifications
+        // manually pasting into the server for this example
+        console.log(JSON.stringify(push))
+      }
+    </script>
   </body>
 </html>
