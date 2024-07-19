@@ -1,4 +1,5 @@
-import 'web-push'
+const push = require('web-push')
+
 
 let vapidKeys = {
   publicKey: 'BMkEkgX3pacOflUelgGHtJkbmY8q3ok58hluHNyJREjds23LB6Ds_z7645zTt90ZYMntvmyAKDnOcGp5v-MOMmU',
